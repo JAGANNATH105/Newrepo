@@ -1,0 +1,66 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.micronaut.application") version "3.6.3"
+}
+
+version = "0.1"
+group = "com.example"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
+    implementation group: 'com.aerospike', name: 'aerospike-client', version: '6.1.4'
+    implementation group: 'com.aerospike', name: 'spring-data-aerospike', version: '3.5.0'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+    implementation 'io.micronaut.configuration:micronaut-hibernate-validator:1.2.0'
+
+
+
+
+// https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
+
+// https://mvnrepository.com/artifact/org.apache.kafka/kafka
+    implementation group: 'org.apache.kafka', name: 'kafka_2.13', version: '3.3.1'
+// https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
+    implementation group: 'org.apache.kafka', name: 'kafka-clients', version: '2.3.0'
+// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.26'
+    implementation group: 'com.aerospike', name: 'java-object-mapper', version: '2.1.0'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation 'io.micronaut.kafka:micronaut-kafka:4.4.1'
+
+
+
+
+}
+
+
+application {
+    mainClass.set("com.example.Application")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+    targetCompatibility = JavaVersion.toVersion("11")
+}
+
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("com.example.*")
+    }
+}
+
+
+
